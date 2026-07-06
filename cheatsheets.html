@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheets — Every Tool, One Page Each</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#0E2A47; --paper-dark:#0A2038; --paper-card:#163856;
+    --ink:#EAF2F8; --ink-soft:#A9C3D8; --ink-faint:#6E8CA6;
+    --line:rgba(255,255,255,0.16); --rule:rgba(255,255,255,0.28);
+    --warn:#F2A93B; --warn-bg:rgba(242,169,59,0.16); --warn-line:rgba(242,169,59,0.45);
+    --code-bg:#061726; --code-text:#BFEFFA;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:15.5px;line-height:1.55;
+    background-image:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:26px 26px;}
+  h1,h2,h3{font-family:'IBM Plex Serif',serif;font-weight:600;margin:0;}
+  code,.mono,pre{font-family:'IBM Plex Mono',monospace;}
+  a{color:var(--info, var(--ink));}
+
+  header{background:#081627;color:var(--ink);padding:36px 5vw 26px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
+  header h1{font-size:29px;color:var(--ink);}
+  header p{max-width:640px;color:var(--ink-soft);margin-top:8px;font-size:14.5px;}
+
+  .crossnav{
+    display:flex;flex-wrap:wrap;gap:2px;background:#081627;border-bottom:1px solid var(--line);
+    padding:0 5vw;font-family:'IBM Plex Mono',monospace;font-size:12px;position:sticky;top:0;z-index:30;
+  }
+  .crossnav a{padding:12px 14px;color:var(--ink-soft);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid transparent;white-space:nowrap;}
+  .crossnav a:hover{color:var(--ink);}
+  .crossnav a.active{color:var(--ink);border-bottom-color:var(--safe);}
+  .crossnav a.cn-home{margin-right:auto;color:var(--ink);font-weight:600;}
+
+  .controls{
+    position:sticky;top:42px;z-index:10;background:var(--paper);border-bottom:1px solid var(--line);
+    padding:14px 5vw;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  }
+  #search{flex:1;min-width:200px;padding:9px 14px;border:1px solid var(--rule);border-radius:8px;font-size:14px;background:var(--paper-card);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+  .printbtn{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:var(--ink);color:var(--paper);
+    border:none;padding:9px 16px;border-radius:8px;cursor:pointer;white-space:nowrap;
+  }
+  .printbtn:hover{background:var(--ink-soft);}
+
+  main{padding:28px 5vw 80px;max-width:1300px;margin:0 auto;}
+  .catgroup{margin-bottom:12px;}
+  .cathead{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.1em;
+    color:#0A2038;font-weight:600;background:var(--cat-color);display:inline-block;padding:5px 12px;border-radius:6px;
+    margin:32px 0 14px;
+  }
+  .sheets{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+
+  .sheet{
+    background:var(--paper-card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;border-top:4px solid var(--cat-color);break-inside:avoid;page-break-inside:avoid;
+  }
+  .sheet-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
+  .sheet h3{font-size:17px;}
+  .getlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ink-faint);white-space:nowrap;}
+  .sheet-desc{font-size:13.5px;color:var(--ink-soft);margin:6px 0 12px;}
+  .risk{
+    font-size:12px;color:var(--warn);background:var(--warn-bg);border:1px solid var(--warn-line);
+    padding:6px 10px;border-radius:6px;margin-bottom:12px;font-family:'IBM Plex Mono',monospace;
+  }
+  .cmdrow{margin-bottom:12px;}
+  .cmdlabel{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin:0 0 2px;}
+  .cmdrow pre{background:var(--code-bg);color:var(--code-text);padding:6px 10px;border-radius:6px;font-size:12px;margin:0 0 3px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;}
+  .cmdrow pre.syntax{background:var(--paper-dark);color:var(--ink);border:1px dashed var(--rule);}
+  .cmdrow pre .ph{color:var(--warn);font-weight:600;}
+  .cmdrow p{font-size:12.5px;color:var(--ink-soft);margin:0 0 6px;}
+
+  .noresults{text-align:center;color:var(--ink-faint);padding:60px 0;font-family:'IBM Plex Mono',monospace;}
+  footer{padding:24px 5vw 50px;color:var(--ink-faint);font-size:13px;border-top:1px solid var(--line);margin-top:30px;}
+
+  @media print{
+    .controls, .crossnav{display:none;}
+    header{background:none;color:var(--ink);padding:0 0 16px;}
+    header h1, .eyebrow{color:var(--ink);}
+    header p{color:var(--ink-soft);}
+    .cathead{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .sheet{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid;}
+    .sheets{grid-template-columns:1fr 1fr;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<nav class="crossnav">
+  <a href="index.html" class="cn-home">⌂ Field HQ</a>
+  <a href="field-manual.html">Vol.1 · Field Manual</a>
+  <a href="armory.html">Vol.2 · Armory</a>
+  <a href="cheatsheets.html" class="active">Vol.3 · Cheat Sheets</a>
+</nav>
+
+<header>
+  <div class="eyebrow">Field manual · vol. 3</div>
+  <h1>Cheat Sheets — Every Tool, Fully Expanded</h1>
+  <p>One self-contained cheat sheet per tool: what it does, where to get it, and its complete command list shown as a general syntax pattern (with <span style="color:#F2A93B">[placeholders]</span>) plus a concrete real-world example underneath. Use the search box to jump to one tool, or print/save as PDF for offline use.</p>
+</header>
+
+<div class="controls">
+  <input id="search" type="text" placeholder="Search tools, commands, or categories...">
+  <button class="printbtn" onclick="window.print()">🖨 Print / Save as PDF</button>
+  <span class="printbtn" id="count" style="background:var(--paper-dark);color:var(--ink);cursor:default;"></span>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  Companion to <em>The Field Manual, Vol. 1</em> and <em>The Armory, Vol. 2</em>. All commands shown are standard, publicly documented syntax — no exploit payloads or attack walkthroughs. Anything flagged ⚠ is authorized-targets-only.
+</footer>
+
+<script>
+const categories = {
+  recon:    {label:"Recon / OSINT",     color:"#6FD8E8"},
+  network:  {label:"Network scanning",  color:"#6FE0A0"},
+  traffic:  {label:"Traffic analysis",  color:"#6FA8F2"},
+  webapp:   {label:"Web app testing",   color:"#F2935F"},
+  password: {label:"Password auditing", color:"#C792E8"},
+  wireless: {label:"Wireless",          color:"#D8E85F"},
+  exploit:  {label:"Exploitation",      color:"#F26F8A"},
+  forensics:{label:"Forensics",         color:"#8F9FF2"},
+  defense:  {label:"Personal defense",  color:"#5FEBC0"},
+};
+
+const tools = [
+  {name:"Whois", cat:"recon", link:"https://who.is/", desc:"Looks up public registration info for a domain — owner org, registrar, creation date.", risk:false,
+   commands:[
+     ["whois [domain]","whois example.com","Look up registration details for a domain"],
+     ["whois [ip-address]","whois 8.8.8.8","Look up who owns an IP address"],
+     ["whois -h [whois-server] [domain]","whois -h whois.arin.net example.com","Query a specific whois server directly"],
+   ]},
+  {name:"theHarvester", cat:"recon", link:"https://github.com/laramies/theHarvester", desc:"Gathers publicly available emails, subdomains, and names linked to an organization from search engines.", risk:false,
+   commands:[
+     ["theHarvester -d [domain] -b [source]","theHarvester -d example.com -b google","Search a single source for public info on a domain"],
+     ["theHarvester -d [domain] -b [source1,source2]","theHarvester -d example.com -b bing,linkedin","Search multiple sources at once"],
+     ["theHarvester -d [domain] -l [limit] -b [source]","theHarvester -d example.com -l 500 -b google","Limit results to a set number of entries"],
+   ]},
+  {name:"Shodan", cat:"recon", link:"https://www.shodan.io/", desc:"A search engine for internet-connected devices — shows what's publicly exposed, not how to break into it.", risk:false,
+   commands:[
+     ["shodan init [api-key]","shodan init YOUR_API_KEY","Set up the CLI with your account's API key"],
+     ["shodan search [keyword]","shodan search apache","Search for devices matching a keyword"],
+     ["shodan host [ip-address]","shodan host 8.8.8.8","Get details Shodan has indexed about an IP"],
+   ]},
+  {name:"Maltego", cat:"recon", link:"https://www.maltego.com/downloads/", desc:"Visualizes relationships between people, domains, and infrastructure using public data (a graphing tool for OSINT).", risk:false,
+   commands:[
+     ["Open Maltego → New Graph","Open Maltego → New Graph","Start a blank investigation canvas"],
+     ["Drag a Domain entity onto the graph","Drag a Domain entity onto the graph","Add your starting point"],
+     ["Right-click entity → Run Transform","Right-click entity → Run Transform","Pull related public data (subdomains, emails, etc.)"],
+   ]},
+
+  {name:"Nmap", cat:"network", link:"https://nmap.org/download.html", desc:"The standard tool for discovering live hosts, open ports, and running services on a network.", risk:true,
+   commands:[
+     ["nmap [target]","nmap 192.168.1.1","Basic scan of common ports on one host"],
+     ["nmap -sV [target]","nmap -sV 192.168.1.1","Detect the version of services running on open ports"],
+     ["nmap -sV -Pn [target]","nmap -sV -Pn 192.168.1.1","Same, but skip host-alive check (useful if ping is blocked)"],
+     ["nmap -p- [target]","nmap -p- 192.168.1.1","Scan all 65,535 ports instead of just the common ones"],
+     ["nmap -A [target]","nmap -A 192.168.1.1","Aggressive scan: OS detection, version detection, script scanning"],
+     ["nmap [subnet]","nmap 192.168.1.0/24","Scan an entire subnet for live hosts"],
+     ["nmap localhost","nmap localhost","Always-legal option — scan your own machine"],
+   ]},
+  {name:"Netcat / Ncat", cat:"network", link:"https://nmap.org/ncat/", desc:"A general-purpose networking tool for reading/writing raw data over connections — the \"Swiss army knife\" of networking.", risk:true,
+   commands:[
+     ["nc -lvp [port]","nc -lvp 4444","Listen for an incoming connection on a port"],
+     ["nc [target] [port]","nc 192.168.1.5 4444","Connect out to a listening host on a port"],
+     ["nc -zv [target] [port-range]","nc -zv 192.168.1.5 20-80","Check which ports in a range are open"],
+     ["echo '[message]' | nc [target] [port]","echo 'hello' | nc 192.168.1.5 4444","Send a quick message to an open port"],
+   ]},
+  {name:"Masscan", cat:"network", link:"https://github.com/robertdavidgraham/masscan", desc:"Like Nmap but built for scanning very large ranges extremely fast.", risk:true,
+   commands:[
+     ["masscan [subnet] -p[ports]","masscan 192.168.1.0/24 -p80,443","Scan a subnet for specific ports only"],
+     ["masscan [range] -p0-65535 --rate [n]","masscan 10.0.0.0/8 -p0-65535 --rate 1000","Scan every port across a huge range at a controlled rate"],
+   ]},
+  {name:"Angry IP Scanner", cat:"network", link:"https://angryip.org/download/", desc:"A simple GUI tool to find live devices on a local network.", risk:false,
+   commands:[
+     ["Enter an IP range → click Start","Enter an IP range → click Start","Scans the range and lists every responding device"],
+     ["Tools → Fetchers","Tools → Fetchers","Choose what extra info to collect per host (hostname, MAC, etc.)"],
+   ]},
+
+  {name:"Wireshark", cat:"traffic", link:"https://www.wireshark.org/download.html", desc:"Captures and visually inspects network traffic packet-by-packet — the standard traffic analysis tool.", risk:false,
+   commands:[
+     ["Select a network interface → click the shark fin icon","Select a network interface → click the shark fin icon","Start capturing live traffic"],
+     ["http","http","Filter box: show only HTTP traffic"],
+     ["ip.addr == [ip-address]","ip.addr == 192.168.1.5","Filter box: show only traffic to/from one IP"],
+     ["File → Export Objects → HTTP","File → Export Objects → HTTP","Extract files that were transferred in the capture"],
+   ]},
+  {name:"tcpdump", cat:"traffic", link:"https://www.tcpdump.org/", desc:"Command-line packet capture — the terminal version of what Wireshark shows visually.", risk:false,
+   commands:[
+     ["tcpdump -i [interface]","tcpdump -i eth0","Capture live traffic on an interface"],
+     ["tcpdump -i [interface] -w [file.pcap]","tcpdump -i eth0 -w capture.pcap","Save the capture to a file for later analysis"],
+     ["tcpdump -r [file.pcap]","tcpdump -r capture.pcap","Read back a saved capture file"],
+     ["tcpdump port [port]","tcpdump port 80","Only capture traffic on a specific port"],
+   ]},
+  {name:"ngrep", cat:"traffic", link:"https://github.com/jpr5/ngrep", desc:"Searches network traffic for text patterns, like grep but for packets.", risk:true,
+   commands:[
+     ["ngrep -d [interface] '[pattern]'","ngrep -d eth0 'GET'","Watch live traffic for a text pattern (e.g. HTTP requests)"],
+     ["ngrep -d [interface] -q '[pattern]'","ngrep -d eth0 -q 'login'","Quietly watch for a specific word in traffic"],
+   ]},
+
+  {name:"Burp Suite", cat:"webapp", link:"https://portswigger.net/burp/communitydownload", desc:"Intercepts and modifies traffic between your browser and a web app — the core tool for web application testing.", risk:false,
+   commands:[
+     ["Proxy tab → set browser proxy to 127.0.0.1:8080","Proxy tab → set browser proxy to 127.0.0.1:8080","Route your browser's traffic through Burp"],
+     ["Proxy → Intercept is on","Proxy → Intercept is on","Pause each request so you can view/edit it before it's sent"],
+     ["Right-click a request → Send to Repeater","Right-click a request → Send to Repeater","Resend and tweak a request manually to test responses"],
+     ["Target tab → Site map","Target tab → Site map","See every page/endpoint Burp has observed"],
+   ]},
+  {name:"OWASP ZAP", cat:"webapp", link:"https://www.zaproxy.org/download/", desc:"A free, open-source alternative to Burp Suite for finding common web app vulnerabilities.", risk:false,
+   commands:[
+     ["Enter [target-url] → click Attack","Enter http://target → click Attack","Runs an automated scan against the authorized target"],
+     ["Manual Explore","Manual Explore","Browse the app yourself while ZAP records requests"],
+     ["Alerts tab","Alerts tab","Shows every issue ZAP flagged, with an explanation"],
+   ]},
+  {name:"SQLmap", cat:"webapp", link:"https://sqlmap.org/", desc:"Automates detection and testing of SQL injection flaws in a web application's inputs.", risk:true,
+   commands:[
+     ["sqlmap -u \"[url]\"","sqlmap -u \"http://target/page?id=1\"","Test a single URL parameter for SQL injection"],
+     ["sqlmap -u \"[url]\" --dbs","sqlmap -u \"http://target/page?id=1\" --dbs","List databases if the target is vulnerable"],
+     ["sqlmap -u \"[url]\" --batch","sqlmap -u \"http://target/page?id=1\" --batch","Run non-interactively, accepting default answers"],
+   ]},
+  {name:"Gobuster", cat:"webapp", link:"https://github.com/OJ/gobuster", desc:"Brute-forces hidden directories and files on a web server to map out what exists.", risk:true,
+   commands:[
+     ["gobuster dir -u [url] -w [wordlist]","gobuster dir -u http://target -w wordlist.txt","Discover hidden directories/files using a wordlist"],
+     ["gobuster dns -d [domain] -w [wordlist]","gobuster dns -d example.com -w wordlist.txt","Discover subdomains for a domain"],
+   ]},
+  {name:"Nikto", cat:"webapp", link:"https://github.com/sullo/nikto", desc:"Scans a web server for outdated software, misconfigurations, and known issues.", risk:true,
+   commands:[
+     ["nikto -h [target]","nikto -h http://target","Run a full scan against a web server"],
+     ["nikto -h [target] -ssl","nikto -h http://target -ssl","Scan a server over HTTPS"],
+   ]},
+
+  {name:"John the Ripper", cat:"password", link:"https://www.openwall.com/john/", desc:"Attempts to crack password hashes to test how strong they actually are.", risk:true,
+   commands:[
+     ["john --wordlist=[wordlist] [hashfile]","john --wordlist=rockyou.txt hashes.txt","Try every password in a wordlist against the hashes"],
+     ["john --show [hashfile]","john --show hashes.txt","Show any passwords already cracked"],
+     ["john --format=[hash-type] [hashfile]","john --format=raw-md5 hashes.txt","Specify the hash type explicitly"],
+   ]},
+  {name:"Hashcat", cat:"password", link:"https://hashcat.net/hashcat/", desc:"A faster, GPU-accelerated password cracking tool, similar purpose to John the Ripper.", risk:true,
+   commands:[
+     ["hashcat -m [mode] [hashfile] [wordlist]","hashcat -m 0 hashes.txt rockyou.txt","Crack hashes of a given type (mode 0 = MD5) using a wordlist"],
+     ["hashcat -m [mode] [hashfile] --show","hashcat -m 1000 hashes.txt --show","Show already-cracked hashes (mode 1000 = NTLM)"],
+   ]},
+  {name:"Hydra", cat:"password", link:"https://github.com/vanhauser-thc/thc-hydra", desc:"Attempts many username/password combinations against a login service to test its resistance to brute force.", risk:true,
+   commands:[
+     ["hydra -l [user] -P [wordlist] [target] [service]","hydra -l admin -P wordlist.txt target ssh","Try a password list against a service for one username"],
+     ["hydra -L [userlist] -P [wordlist] [target] [service]","hydra -L users.txt -P wordlist.txt target ftp","Try combinations of multiple usernames and passwords"],
+   ]},
+
+  {name:"Aircrack-ng", cat:"wireless", link:"https://www.aircrack-ng.org/", desc:"A suite for testing Wi-Fi network security, including capturing handshakes and testing password strength.", risk:true,
+   commands:[
+     ["airmon-ng start [interface]","airmon-ng start wlan0","Put your wireless adapter into monitor mode"],
+     ["airodump-ng [monitor-interface]","airodump-ng wlan0mon","List nearby wireless networks and connected devices"],
+     ["aircrack-ng [capture-file] -w [wordlist]","aircrack-ng capture.cap -w wordlist.txt","Test a captured handshake against a password list"],
+   ]},
+  {name:"Kismet", cat:"wireless", link:"https://www.kismetwireless.net/", desc:"Detects and maps nearby wireless networks and devices.", risk:true,
+   commands:[
+     ["kismet","kismet","Start capturing and mapping nearby wireless activity"],
+     ["Open http://localhost:2501","Open http://localhost:2501","View the live web dashboard of detected networks"],
+   ]},
+
+  {name:"Metasploit", cat:"exploit", link:"https://www.metasploit.com/download", desc:"A framework of catalogued, known vulnerabilities and modules for testing them against authorized targets.", risk:true,
+   commands:[
+     ["msfconsole","msfconsole","Launch the framework's interactive console"],
+     ["search type:exploit [keyword]","search type:exploit apache","Search the module database by keyword"],
+     ["use [module-path]","use exploit/path/to/module","Load a specific module"],
+     ["show options","show options","See what settings a loaded module needs"],
+     ["set RHOSTS [target]","set RHOSTS target_ip","Set the authorized target for the loaded module"],
+   ]},
+  {name:"searchsploit", cat:"exploit", link:"https://www.exploit-db.com/searchsploit", desc:"Searches a local database of publicly known exploits and proof-of-concepts by keyword.", risk:true,
+   commands:[
+     ["searchsploit [keyword] [version]","searchsploit apache 2.4","Search for known public exploits matching a keyword/version"],
+     ["searchsploit -m [entry-id]","searchsploit -m 12345","Copy a specific exploit-db entry to your working folder"],
+   ]},
+
+  {name:"Autopsy", cat:"forensics", link:"https://www.autopsy.com/download/", desc:"A digital forensics platform for examining disk images after an incident.", risk:false,
+   commands:[
+     ["New Case → Add Data Source","New Case → Add Data Source","Load a disk image to begin analysis"],
+     ["File Types / Timeline panels","File Types / Timeline panels","Browse recovered files or view activity over time"],
+   ]},
+  {name:"Volatility", cat:"forensics", link:"https://www.volatilityfoundation.org/", desc:"Analyzes a memory (RAM) snapshot to find evidence of what a system was doing.", risk:false,
+   commands:[
+     ["volatility -f [memory-dump] imageinfo","volatility -f memory.dmp imageinfo","Identify the OS profile of a memory dump"],
+     ["volatility -f [memory-dump] --profile=[profile] pslist","volatility -f memory.dmp --profile=Win10x64 pslist","List processes that were running when the memory was captured"],
+   ]},
+  {name:"ExifTool", cat:"forensics", link:"https://exiftool.org/", desc:"Reads hidden metadata embedded in files — like the GPS location saved inside a photo.", risk:false,
+   commands:[
+     ["exiftool [file]","exiftool photo.jpg","Show all metadata embedded in a file"],
+     ["exiftool -gps* [file]","exiftool -gps* photo.jpg","Show only GPS-related metadata"],
+     ["exiftool -all= [file]","exiftool -all= photo.jpg","Strip all metadata from a file"],
+   ]},
+
+  {name:"Bitwarden", cat:"defense", link:"https://bitwarden.com/download/", desc:"A free password manager — generates and stores strong, unique passwords for every account.", risk:false,
+   commands:[
+     ["Install the browser extension or app","Install the browser extension or app","Sign up and create your encrypted vault"],
+     ["Click the generator icon","Click the generator icon","Create a strong random password for a new account"],
+   ]},
+  {name:"Aegis Authenticator", cat:"defense", link:"https://getaegis.app/", desc:"A free, open-source app for generating two-factor authentication codes.", risk:false,
+   commands:[
+     ["Add a new entry → scan QR code","Add a new entry → scan QR code","Link Aegis to an account's 2FA setup"],
+     ["Open the app when logging in","Open the app when logging in","Read the current 6-digit code to complete login"],
+   ]},
+  {name:"Proton VPN", cat:"defense", link:"https://protonvpn.com/download", desc:"Encrypts your internet traffic and hides your IP address, especially useful on public Wi-Fi.", risk:false,
+   commands:[
+     ["Open the app → choose a server → Connect","Open the app → choose a server → Connect","Route your traffic through an encrypted tunnel"],
+   ]},
+];
+
+const main = document.getElementById('main');
+const searchEl = document.getElementById('search');
+const countEl = document.getElementById('count');
+
+function highlightPlaceholders(str){
+  return str.replace(/\[([^\]]+)\]/g, '<span class="ph">[$1]</span>');
+}
+
+function render(){
+  const q = searchEl.value.trim().toLowerCase();
+  main.innerHTML = '';
+  let shown = 0;
+
+  Object.entries(categories).forEach(([key, cat]) => {
+    const catTools = tools.filter(t => t.cat === key).filter(t => {
+      if(!q) return true;
+      return t.name.toLowerCase().includes(q) ||
+             t.desc.toLowerCase().includes(q) ||
+             t.commands.some(c => c[0].toLowerCase().includes(q) || c[1].toLowerCase().includes(q) || c[2].toLowerCase().includes(q));
+    });
+    if(catTools.length === 0) return;
+    shown += catTools.length;
+
+    const group = document.createElement('div');
+    group.className = 'catgroup';
+    group.innerHTML = `<div class="cathead" style="--cat-color:${cat.color}">${cat.label}</div>`;
+    const sheets = document.createElement('div');
+    sheets.className = 'sheets';
+
+    catTools.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'sheet';
+      card.style.setProperty('--cat-color', cat.color);
+      card.innerHTML = `
+        <div class="sheet-head">
+          <h3>${t.name}</h3>
+          <a class="getlink" href="${t.link}" target="_blank" rel="noopener">Get it ↗</a>
+        </div>
+        <p class="sheet-desc">${t.desc}</p>
+        ${t.risk ? `<div class="risk">⚠ Authorized targets only — your own systems or systems with written permission</div>` : ''}
+        ${t.commands.map(c => {
+          const [syntax, example, d] = c;
+          const isGui = syntax === example;
+          return `
+          <div class="cmdrow">
+            ${isGui ? '' : `<div class="cmdlabel">Syntax</div><pre class="syntax">${highlightPlaceholders(syntax)}</pre>`}
+            <div class="cmdlabel">${isGui ? 'Action' : 'Example'}</div>
+            <pre>${example}</pre>
+            <p>${d}</p>
+          </div>`;
+        }).join('')}
+      `;
+      sheets.appendChild(card);
+    });
+    group.appendChild(sheets);
+    main.appendChild(group);
+  });
+
+  countEl.textContent = q ? `${shown} matching commands/tools` : `${tools.length} tools · ${tools.reduce((a,t)=>a+t.commands.length,0)} commands total`;
+  if(shown === 0){
+    main.innerHTML = '<div class="noresults">No tools or commands match that search.</div>';
+  }
+}
+searchEl.addEventListener('input', render);
+render();
+</script>
+</body>
+</html>
